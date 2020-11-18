@@ -196,11 +196,6 @@ function runSearch() {
                                             message: "enter the employee’s surname"
                                         },
                                         {
-                                            name: "newRoleId",
-                                            type: "input",
-                                            message: "enter the role id"
-                                        },
-                                        {
                                             name: "newManagerId",
                                             type: "rawlist",
                                             message: "enter the manager id",
@@ -208,9 +203,9 @@ function runSearch() {
                                         }
                                     ])
                                     .then(function (answer) {
-                                        const query7 = "UPDATE employee SET ? WHERE ?";
+                                        const query7 = "UPDATE employee SET ? WHERE id = ?"
 
-                                        connection.query(query7, { first_name: answer.newEmployeeName, last_name: answer.newEmployeeSurname, role_id: answer.newRoleId, manager_id: answer.newManagerId }, function (err, res) {
+                                        connection.query(query7, { first_name: answer.newEmployeeName, last_name: answer.newEmployeeSurname, manager_id: answer.newManagerId }, function (err, res) {
                                             console.log(err, res);
                                         });
                                         runSearch();
