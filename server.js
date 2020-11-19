@@ -182,7 +182,7 @@ function runSearch() {
                                     choices: empOptions
                                 },
                             ])
-                            .then(function () {
+                            .then(function (EmployeeSelectAnswer) {
                                 inquirer
                                     .prompt([
                                         {
@@ -203,12 +203,20 @@ function runSearch() {
                                         }
                                     ])
                                     .then(function (answer) {
-                                        const query7 = "UPDATE employee SET ? WHERE id = ?"
-
-                                        connection.query(query7, { first_name: answer.newEmployeeName, last_name: answer.newEmployeeSurname, manager_id: answer.newManagerId }, function (err, res) {
+                                        const query7 = "UPDATE employee SET ? WHERE ?"
+                                        console.log(answer);
+                                        connection.query(query7, [
+                                            {
+                                                first_name: answer.newEmployeeName,
+                                                last_name: answer.newEmployeeSurname,
+                                                manager_id: answer.newManagerId
+                                            },
+                                            { id: EmployeeSelectAnswer.employeeSelect }
+                                        ], function (err, res) {
                                             console.log(err, res);
                                         });
                                         runSearch();
+
                                     });
                             });
 
